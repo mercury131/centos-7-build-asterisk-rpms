@@ -65,6 +65,8 @@ sed -i 's/AllowOverride None/AllowOverride All/' /etc/httpd/conf/httpd.conf
 systemctl restart httpd.service
 echo "Configure FreePBX"
 cd /opt/freepbx-14/ && ./install -n
+fwconsole ma install pm2
+AMIPASS=$(cat /etc/asterisk/manager.conf | grep secret | awk ' {print $3 }') && cat /etc/amportal.conf | sed "s/AMPMGRPASS=[^[:space:]]*/AMPMGRPASS=$AMIPASS /g" > /etc/amportal.conf.new && mv /etc/amportal.conf /etc/amportal.conf.old && mv /etc/amportal.conf.new /etc/amportal.conf && chown asterisk:asterisk /etc/amportal.conf && fwconsole stop && fwconsole chown && fwconsole start
 
 %postun
 if [ $1 == 1 ];then
@@ -77,7 +79,7 @@ if [ $1 == 1 ];then
    rm /etc/freepbx.conf
    rm /etc/asterisk/freepbx.conf
    %service asterisk stop
-   /sbin/chkconfig --del asterisk
+   /sbin/chkconfig --del freepbx
 elif [ $1 == 0 ];then
    echo "FreePBX is getting removed/uninstalled"
    rm /usr/sbin/amportal
@@ -89,5 +91,5 @@ elif [ $1 == 0 ];then
    rm /etc/asterisk/freepbx.conf
    rm -f /etc/asterisk/*.conf
    %service asterisk stop
-   /sbin/chkconfig --del asterisk
+   /sbin/chkconfig --del freepbx
 fi
