@@ -1,6 +1,20 @@
-Install FreePBX
+Build FreePBX
+
+````
+cd ~/centos-7-build-asterisk-rpms/FreePBX-14-build/
+```
 
 ```
+rpmbuild -bb free-pbx-14.spec
+```
+
+
+Install FreePBX
+
+
+```
+curl -sL https://rpm.nodesource.com/setup_8.x | bash -
+yum install -y nodejs
 rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm
 ```
 

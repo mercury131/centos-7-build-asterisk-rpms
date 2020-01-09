@@ -80,6 +80,7 @@ if [ $1 == 1 ];then
    rm /etc/asterisk/freepbx.conf
    %service asterisk stop
    /sbin/chkconfig --del freepbx
+   mysql --user=root --execute="DROP DATABASE asterisk;"
 elif [ $1 == 0 ];then
    echo "FreePBX is getting removed/uninstalled"
    rm /usr/sbin/amportal
@@ -92,4 +93,5 @@ elif [ $1 == 0 ];then
    rm -f /etc/asterisk/*.conf
    %service asterisk stop
    /sbin/chkconfig --del freepbx
+   mysql --user=root --execute="DROP DATABASE asterisk;"
 fi
