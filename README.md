@@ -47,7 +47,7 @@ rpmbuild -bb asterisk.spec
 # install after build
 ```
 yum install festival -y
-yum install epel-release 
-yum install libsrtp libzstd
+yum install epel-release -y
+yum install libsrtp libzstd uriparser -y
 rpm -ivh asterisk-*
 ```
