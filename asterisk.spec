@@ -335,23 +335,8 @@ cd menuselect
 cd ..
 
 %configure \
-	%{__without oss SDL_image} \
-	%{__without bluetooth bluetooth} \
-	--without-gtk2 \
 	--with-gnu-ld \
-	--with-gsm=/usr \
-	%{__without ilbc ilbc} \
-	%{__without jack jack} \
-	%{__without ldap ldap} \
-	%{__without mysql mysqlclient} \
-	%{__without oss oss} \
-	%{__without pjsip pjproject} \
-	%{__without portaudio portaudio} \
-	%{__without pgsql postgres} \
-	%{__without radius radius} \
-	%{__without oss sdl} \
-	%{__without tds tds} \
-	%{__without odbc unixodbc}
+	--with-gsm=/usr 
 
 cp -f .cleancount .lastclean
 
@@ -361,18 +346,7 @@ cp -f .cleancount .lastclean
 cp %{SOURCE6} .
 cp %{SOURCE7} .
 
-menuselect/menuselect --disable res_corosync menuselect.makeopts
-menuselect/menuselect --disable res_config_sqlite menuselect.makeopts
-menuselect/menuselect --disable chan_oss menuselect.makeopts
-menuselect/menuselect --disable cdr_tds --disable cel_tds menuselect.makeopts
-menuselect/menuselect --disable codec_ilbc --disable format_ilbc menuselect.makeopts
-menuselect/menuselect --disable res_config_ldap menuselect.makeopts
-menuselect/menuselect --disable chan_mobile menuselect.makeopts
-menuselect/menuselect --disable app_jack menuselect.makeopts
-menuselect/menuselect --disable res_config_mysql --disable app_mysql --disable cdr_mysql menuselect.makeopts
-menuselect/menuselect --disable res_config_pgsql --disable cdr_pgsql --disable cel_pgsql menuselect.makeopts
-menuselect/menuselect --disable res_odbc --disable res_config_odbc --disable cdr_odbc --disable cdr_adaptive_odbc --disable cel_odbc menuselect.makeopts
-menuselect/menuselect --disable cdr_radius --disable cel_radius menuselect.makeopts
+
 
 %{__sed} -i -e 's/^MENUSELECT_OPTS_app_voicemail=.*$/MENUSELECT_OPTS_app_voicemail=FILE_STORAGE/' menuselect.makeopts
 
