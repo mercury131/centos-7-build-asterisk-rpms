@@ -46,6 +46,8 @@ rpmbuild -bb asterisk.spec
 
 # install after build
 ```
-Yum install festival -y
+yum install festival -y
+yum install epel-release 
+yum install libsrtp
 rpm -ivh asterisk-*
 ```
