@@ -49,5 +49,7 @@ rpmbuild -bb asterisk.spec
 yum install festival -y
 yum install epel-release -y
 yum install libsrtp libzstd uriparser -y
+yum install spandsp libtiff gmime  speex sox gnutls -y
+rpm -Uvh http://springdale.math.ias.edu/data/puias/unsupported/7/x86_64//iksemel-1.4-6.sdl7.x86_64.rpm
 rpm -ivh asterisk-*
 ```
