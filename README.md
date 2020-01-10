@@ -48,6 +48,6 @@ rpmbuild -bb asterisk.spec
 ```
 yum install festival -y
 yum install epel-release 
-yum install libsrtp
+yum install libsrtp libzstd
 rpm -ivh asterisk-*
 ```
