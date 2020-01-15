@@ -354,7 +354,9 @@ menuselect/menuselect --enable app_voicemail menuselect.makeopts
 
 menuselect/menuselect --check-deps menuselect.makeopts
 
-menuselect/menuselect --enable-all
+contrib/scripts/get_mp3_source.sh
+menuselect/menuselect --enable codec_a_mu
+menuselect/menuselect --enable format_mp3
 
 # workaround for build failing with asterisk-devel not installed
 ln -s libasteriskssl.so.1 ./main/libasteriskssl.so
