@@ -4,7 +4,7 @@ yum install epel-release -y
 cp repo/asterisk.repo /etc/yum.repos.d/
 
 yum install asterisk -y
-
+yum install asterisk-sip asterisk-pjsip asterisk-mp3 asterisk-minivm asterisk-festival asterisk-fax  asterisk-alsa -y
 sleep 30
 systemctl start asterisk 
 systemctl enable asterisk 
