@@ -10,6 +10,7 @@ yum install -y wget git redhat-lsb-core wget rpmdevtools rpm-build createrepo yu
 ```
 ```
 yum -y groupinstall core base "Development Tools"
+yum install -y pjproject-devel
 ```
 ```
 yum -y install  ncurses-devel sox newt-devel libxml2-devel libtiff-devel \
