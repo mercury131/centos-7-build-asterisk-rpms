@@ -5,7 +5,7 @@ yum install spandsp libtiff gmime  speex sox gnutls -y
 yum install -y pjproject-devel
 rpm -ivh lux-release-7-1.noarch.rpm
 yum install -y dahdi-tools
-yum  install dahdi-tools-devel
+yum  install -y dahdi-tools-devel
 rpm -Uvh http://springdale.math.ias.edu/data/puias/unsupported/7/x86_64//iksemel-1.4-6.sdl7.x86_64.rpm
 for i in $(ls RPMS/x86_64/ | grep asterisk); do rpm -ivh RPMS/x86_64/$i; done
 systemctl start asterisk
