@@ -354,6 +354,8 @@ menuselect/menuselect --enable app_voicemail menuselect.makeopts
 
 menuselect/menuselect --check-deps menuselect.makeopts
 
+menuselect/menuselect --enable-all
+
 # workaround for build failing with asterisk-devel not installed
 ln -s libasteriskssl.so.1 ./main/libasteriskssl.so
 
