@@ -13,3 +13,47 @@ cd ~/centos-7-build-asterisk-rpms/
 curl -sL https://rpm.nodesource.com/setup_8.x | bash -
 yum install -y nodejs
 rpm -ivh FreePBX-14-build/RPMS/x86_64/freepbx-14-1.el7.x86_64.rpm
+sleep 10
+firewall-cmd --zone=public --add-port=80/tcp --permanent
+firewall-cmd --zone=public --add-port=443/tcp --permanent
+firewall-cmd --reload
+
+amportal a ma listonline
+amportal a ma install backup --repos standard, extended
+amportal a ma install manager --repos standard, extended
+amportal a ma install arimanager --repos standard, extended
+
+fwconsole reload
+
+sed -i 's|Listen 80|Listen 127.0.0.1:8090|g' /etc/httpd/conf/httpd.conf
+
+systemctl restart httpd.service
+
+yum install nginx -y
+
+cp -f nginx/nginx.conf /etc/nginx/nginx.conf
+cp -f nginx/conf.d/freepbx.conf /etc/nginx/conf.d/freepbx.conf
+
+systemctl start nginx
+systemctl enable nginx
+
+read -p "Install https access via let-s-encrypt (y/n)? " -n 1 -r
+
+if [[ $REPLY =~ ^[Yy]$ ]]
+then
+
+yum install certbot-nginx -y
+
+read -p "Enter your domain: " DOMAIN
+
+certbot --nginx -d $DOMAIN -d www.$DOMAIN
+
+crontab -l > mycron
+
+echo "15 3 * * * /usr/bin/certbot renew --quiet" >> mycron
+
+crontab mycron
+
+rm mycron
+
+fi
