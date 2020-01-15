@@ -39,6 +39,8 @@ BuildRequires:  gcc
 BuildRequires:	gmime-devel
 BuildRequires:	iksemel-devel
 BuildRequires:	jansson-devel
+#BuildRequires:	dahdi-linux-devel
+BuildRequires:	dahdi-tools-devel >= 2.0.0
 BuildRequires:	libcap-devel
 BuildRequires:	libedit-devel
 BuildRequires:	gsm-devel
@@ -55,7 +57,7 @@ BuildRequires:	net-snmp-devel
 BuildRequires:	newt-devel
 BuildRequires:	openssl-devel >= 0.9.7d
 BuildRequires:	pam-devel
-%{?with_pjsip:BuildRequires:	pjproject-devel >= 2.3}
+BuildRequires:	pjproject-devel >= 2.3
 BuildRequires:	pkgconfig
 BuildRequires:	popt-devel
 BuildRequires:	rpm-build
@@ -123,6 +125,16 @@ Astman is a text mode Manager for Asterisk.
 
 Astman connects to Asterisk by TCP, so you can run Astman on a
 completely different computer than your Asterisk computer.
+
+%package dahdi
+Summary:	Modules for Asterisk that use DAHDI
+Group:		Applications/Networking
+Requires(pre):	/usr/sbin/usermod
+Requires:	%{name} = %{version}-%{release}
+Requires:	dahdi-tools >= 2.0.0
+
+%description dahdi
+Modules for Asterisk that use DAHDI.
 
 
 %package fax
@@ -451,40 +463,9 @@ find doc/api -name '*.map' -size 0 -delete
 %endif
 
 # remove configuration files for components never built
-%{__rm} %{buildroot}%{_sysconfdir}/asterisk/{app_skel,config_test,misdn,ooh323,test_sorcery,alsa,app_mysql,calendar,cdr_mysql,chan_dahdi,dbsep,hep,meetme,osp,pjproject,pjsip,pjsip_notify,pjsip_wizard,res_curl,res_pktccops,res_snmp,unistim}.conf
+#%{__rm} %{buildroot}%{_sysconfdir}/asterisk/{app_skel,config_test,misdn,ooh323,test_sorcery,alsa,app_mysql,calendar,cdr_mysql,chan_dahdi,dbsep,hep,meetme,osp,pjproject,pjsip,pjsip_notify,pjsip_wizard,res_curl,res_pktccops,res_snmp,unistim}.conf
 
-# remove configuration files for disabled optional components
-%{__rm} %{buildroot}%{_sysconfdir}/asterisk/res_corosync.conf
-%{__rm} %{buildroot}%{_sysconfdir}/asterisk/res_config_sqlite.conf
-%{__rm} %{buildroot}%{_sysconfdir}/asterisk/oss.conf
-%{__rm} %{buildroot}%{_sysconfdir}/asterisk/{cdr,cel}_tds.conf
-%{__rm} %{buildroot}%{_sysconfdir}/asterisk/res_ldap.conf
-%{__rm} %{buildroot}%{_sysconfdir}/asterisk/console.conf
-%{__rm} %{buildroot}%{_sysconfdir}/asterisk/chan_mobile.conf
-%{__rm} %{buildroot}%{_sysconfdir}/asterisk/res_config_mysql.conf
-%{__rm} %{buildroot}%{_sysconfdir}/asterisk/{cdr,cel,res}_pgsql.conf
-%{__rm} %{buildroot}%{_sysconfdir}/asterisk/{cdr{,_adaptive},cel,func,res}_odbc.conf
-%{__rm} %{buildroot}%{_sysconfdir}/asterisk/extensions.lua
 
-%{__rm} %{buildroot}%{_libdir}/asterisk/modules/app_page.so
-%{__rm} %{buildroot}%{_libdir}/asterisk/modules/chan_unistim.so
-%{__rm} %{buildroot}%{_libdir}/asterisk/modules/codec_lpc10.so
-%{__rm} %{buildroot}%{_libdir}/asterisk/modules/codec_resample.so
-%{__rm} %{buildroot}%{_libdir}/asterisk/modules/res_calendar.so
-%{__rm} %{buildroot}%{_libdir}/asterisk/modules/res_calendar_caldav.so
-%{__rm} %{buildroot}%{_libdir}/asterisk/modules/res_calendar_ews.so
-%{__rm} %{buildroot}%{_libdir}/asterisk/modules/res_calendar_exchange.so
-%{__rm} %{buildroot}%{_libdir}/asterisk/modules/res_calendar_icalendar.so
-%{__rm} %{buildroot}%{_libdir}/asterisk/modules/res_format_attr_vp8.so
-%{__rm} %{buildroot}%{_libdir}/asterisk/modules/res_hep.so
-%{__rm} %{buildroot}%{_libdir}/asterisk/modules/res_hep_rtcp.so
-%{__rm} %{buildroot}%{_libdir}/asterisk/modules/res_snmp.so
-
-%{__rm} -f %{buildroot}%{_sbindir}/check_expr
-%{__rm} -f %{buildroot}%{_sbindir}/check_expr2
-%{__rm} %{buildroot}%{_sbindir}/rasterisk
-
-%{__rm} -r %{buildroot}/usr/include/asterisk/doxygen
 
 %clean
 rm -rf %{buildroot}
@@ -990,6 +971,19 @@ chown -R asterisk:asterisk /var/lib/asterisk
 %attr(755,root,root) %{_libdir}/asterisk/modules/res_pjsip_xpidf_body_generator.so
 %endif
 
+
+%files dahdi
+%defattr(644,root,root,755)
+%attr(640,root,asterisk) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/asterisk/meetme.conf
+%attr(640,root,asterisk) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/asterisk/chan_dahdi.conf
+%{_datadir}/dahdi/span_config.d/40-asterisk
+%attr(755,root,root) %{_libdir}/asterisk/modules/app_dahdiras.so
+%attr(755,root,root) %{_libdir}/asterisk/modules/app_flash.so
+%attr(755,root,root) %{_libdir}/asterisk/modules/app_meetme.so
+%attr(755,root,root) %{_libdir}/asterisk/modules/app_page.so
+%attr(755,root,root) %{_libdir}/asterisk/modules/chan_dahdi.so
+%attr(755,root,root) %{_libdir}/asterisk/modules/codec_dahdi.so
+%attr(755,root,root) %{_libdir}/asterisk/modules/res_timing_dahdi.so
 
 %files skinny
 %defattr(644,root,root,755)

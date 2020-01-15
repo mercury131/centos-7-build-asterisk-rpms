@@ -8,6 +8,15 @@ yum update -y
 ```
 yum install -y wget git redhat-lsb-core wget rpmdevtools rpm-build createrepo yum-utils openssl-devel zlib-devel pcre-devel gcc
 ```
+
+
+```
+wget http://repo.iotti.biz/CentOS/7/noarch/lux-release-7-1.noarch.rpm
+rpm -ivh lux-release-7-1.noarch.rpm
+yum install dahdi-tools
+yum install dahdi-tools-devel
+```
+
 ```
 yum -y groupinstall core base "Development Tools"
 yum install -y pjproject-devel
