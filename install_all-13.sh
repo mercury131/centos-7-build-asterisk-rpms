@@ -5,6 +5,8 @@ cp repo/asterisk.repo /etc/yum.repos.d/
 
 yum install asterisk -y
 
+systemctl start asterisk 
+systemctl enable asterisk 
 
 rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm
 yum install httpd mariadb mariadb-server mysql-connector-odbc php56w php56w-common  php56w-intl php56w-ldap php56w-mbstring php56w-mysql php56w-opcache php56w-pdo php56w-pear php56w-process php56w-soap php56w-xml -y
