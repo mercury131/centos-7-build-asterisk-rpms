@@ -350,13 +350,16 @@ cp %{SOURCE7} .
 
 %{__sed} -i -e 's/^MENUSELECT_OPTS_app_voicemail=.*$/MENUSELECT_OPTS_app_voicemail=FILE_STORAGE/' menuselect.makeopts
 
-menuselect/menuselect --enable app_voicemail menuselect.makeopts
-
-menuselect/menuselect --check-deps menuselect.makeopts
-
 contrib/scripts/get_mp3_source.sh
-menuselect/menuselect --enable codec_a_mu
-menuselect/menuselect --enable format_mp3
+make menuselect
+
+#menuselect/menuselect --enable app_voicemail menuselect.makeopts
+
+#menuselect/menuselect --check-deps menuselect.makeopts
+
+
+#menuselect/menuselect --enable codec_a_mu
+#menuselect/menuselect --enable format_mp3
 
 # workaround for build failing with asterisk-devel not installed
 ln -s libasteriskssl.so.1 ./main/libasteriskssl.so
