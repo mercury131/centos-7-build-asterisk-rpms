@@ -5,6 +5,7 @@ cp repo/asterisk.repo /etc/yum.repos.d/
 
 yum install asterisk -y
 
+sleep 30
 systemctl start asterisk 
 systemctl enable asterisk 
 
@@ -38,6 +39,8 @@ cp -f nginx/conf.d/freepbx.conf /etc/nginx/conf.d/freepbx.conf
 
 systemctl start nginx
 systemctl enable nginx
+
+systemctl restart asterisk
 
 read -p "Install https access via let-s-encrypt (y/n)? " -n 1 -r
 
